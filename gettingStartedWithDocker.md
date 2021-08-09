@@ -20,7 +20,7 @@ Some basic notes regarding the run command found here https://docs.docker.com/en
 ```
 $ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
 ```
-There are many different flags you can put in the options sections.  
+There are many different flags you can put in the options sections. I'll only go through a few that were relevant to my experiences.    
 Background Mode:  
 -d - runs in detached mode like previously stated below. If not specified, deafultly runs in foreground  
 Foreground Mode:  
@@ -30,6 +30,20 @@ In foreground mode, you can attach the console to a process 's standard input, o
 --sig-proxy=true: Proxy all received signals to the process (non-TTY mode only)  
 -i              : Keep STDIN open even if not attached  
 
+Volume Related Flags:  
+-v, -volume=[host-src:]container-dest[:<options>]: Bind mount a volume.  
+Mounts folder to container from computer. The 'host-src' is an absolute path or a name value.  
+:/input specifies that the path is the input directory  
+:/output specified that the path is the output directory
+
+Expose Flags:  
+These flags are related to networking.  
+-p=[]: Publish a container's port or a range of ports to the host. Both hostPort and containerPort can be specified as a range of ports. When specifying ranges for both, the  number of container ports in the range must match the number of host ports in the range, like in the Wala command:  
+       -p 5901:5901  
+
+Other Flags:  
+-ti: Opens an interactive container instance  
+
 # Docker in regards to Wala
 
 To run the Wala Development image in Docker, you need to run the following command:  
@@ -37,5 +51,4 @@ To run the Wala Development image in Docker, you need to run the following comma
 docker run -v /mnt/d/WalaTesting/input:/input -v /mnt/d/WalaTesting/output:/output -p 5901:5901 -ti julianwindows/wala:walacodenet
 ```
 
-The flags here mean the following:
 
