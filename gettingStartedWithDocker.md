@@ -69,7 +69,7 @@ The default "docker images" command shows all top level images, their respective
 --quiet, -q: Only shows the image IDs  
 ```
        
-Examples taken from docker.com:  
+All Examples taken from docker.com:  
 ```
 $ docker images  
 
@@ -125,3 +125,57 @@ Digest: sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
 Status: Downloaded newer image for ubuntu:14.04
 ```
        
+# Docker Commit 
+```
+$ docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+```
+This command creates a new image from a container's changes. It could be useful to commit a container's file changes or settings into a new image.  
+The commit operation will not include any data actually contained in the volumes mounted inside the container.  
+By default, the container being committed alonside its processes will be suspended while the image is committed, reducing the likelihood of encountering data corruption during the process of creating the commit. This can be changed by setting the --pause option to false.  
+#### Options  
+```
+--author, -a : String that describes the author
+--change, -c : Applies the dockerfile instruction to the created image
+--message, -m : Details the commit message
+--pause, -p : Pauses container during commit (Default is true)
+```
+
+Examples:  
+Committing a container  
+```
+$ docker ps
+
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS              NAMES
+c3f279d17e0a        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            desperate_dubinsky
+197387f1b436        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            focused_hamilton
+
+$ docker commit c3f279d17e0a  svendowideit/testimage:version3
+
+f5283438590d
+
+$ docker images
+
+REPOSITORY                        TAG                 ID                  CREATED             SIZE
+svendowideit/testimage            version3            f5283438590d        16 seconds ago      335.7 MB
+```
+
+Committing a container with new configurations
+```
+$ docker ps
+
+CONTAINER ID       IMAGE               COMMAND             CREATED             STATUS              PORTS              NAMES
+c3f279d17e0a        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            desperate_dubinsky
+197387f1b436        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            focused_hamilton
+
+$ docker inspect -f "{{ .Config.Env }}" c3f279d17e0a
+
+[HOME=/ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin]
+
+$ docker commit --change "ENV DEBUG=true" c3f279d17e0a  svendowideit/testimage:version3
+
+f5283438590d
+
+$ docker inspect -f "{{ .Config.Env }}" f5283438590d
+
+[HOME=/ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin DEBUG=true]
+```
