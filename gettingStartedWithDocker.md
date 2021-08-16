@@ -214,3 +214,48 @@ $ docker inspect -f "{{ .Config.Env }}" f5283438590d
 
 [HOME=/ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin DEBUG=true]
 ```
+
+       
+# Docker Push
+```
+$ docker push [OPTIONS] NAME[:TAG]
+```
+This command pushes an image or a repository to a registry. "Docker image push" is used to share images to the docker hub registry or to a self-hosted one.  
+Killing the "docker image push" process, such as by pressing ctrl-c, terminates the push operation.  
+#### Options  
+```
+--all-tags, -a : Pushes all the tagged images into the repository
+--disable-content-trust : Skips the image signing (default true)
+--quiet, -q : Supresses verbose output
+```
+
+Examples:  
+Pushing a new image to a registry  
+```
+$ docker container commit c16378f943fe rhel-httpd:latest
+       
+$ docker image tag rhel-httpd:latest registry-host:5000/myadmin/rhel-httpd:latest
+
+$ docker image push registry-host:5000/myadmin/rhel-httpd:latest
+       
+$ docker image ls
+```
+
+Push all tags of an image
+```
+$ docker image tag myimage registry-host:5000/myname/myimage:latest
+$ docker image tag myimage registry-host:5000/myname/myimage:v1.0.1
+$ docker image tag myimage registry-host:5000/myname/myimage:v1.0
+$ docker image tag myimage registry-host:5000/myname/myimage:v1
+```
+The image is tagged under multiple names:  
+```
+$ docker image ls
+
+REPOSITORY                          TAG        IMAGE ID       CREATED      SIZE
+myimage                             latest     6d5fcfe5ff17   2 hours ago  1.22MB
+registry-host:5000/myname/myimage   latest     6d5fcfe5ff17   2 hours ago  1.22MB
+registry-host:5000/myname/myimage   v1         6d5fcfe5ff17   2 hours ago  1.22MB
+registry-host:5000/myname/myimage   v1.0       6d5fcfe5ff17   2 hours ago  1.22MB
+registry-host:5000/myname/myimage   v1.0.1     6d5fcfe5ff17   2 hours ago  1.22MB
+```
