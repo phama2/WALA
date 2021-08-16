@@ -55,6 +55,41 @@ These flags are related to networking.
 Other Flags:  
 -ti: Opens an interactive container instance  
 
+# Docker ps
+```
+$ docker ps [OPTIONS]
+```
+This incredibly useful command lists all the current containers on your machine.
+#### Options  
+```
+--all-tags, -a : Show all containers (default shows only running)
+--filter, -f : Filters output based on provided conditions
+--last, -n : Show n last created containers, including all states (default is -1)
+--latest, -l : Shows the latest created container, including all states
+--no-trunc : Prevents truncating of the output
+--quiet, -q : Only displays container IDs
+--size, -s : Displays total file sizes
+```
+(All Examples taken from docker.com)  
+Examples:  
+Prevent truncating output:   
+```
+$ docker ps
+
+CONTAINER ID        IMAGE                        COMMAND                CREATED              STATUS              PORTS               NAMES
+4c01db0b339c        ubuntu:12.04                 bash                   17 seconds ago       Up 16 seconds       3300-3310/tcp       webapp
+d7886598dbe2        crosbymichael/redis:latest   /redis-server --dir    33 minutes ago       Up 33 minutes       6379/tcp            redis,webapp/db
+```
+
+Show disk usage by container  
+```
+$ docker ps -s
+
+CONTAINER ID   IMAGE          COMMAND                  CREATED        STATUS       PORTS   NAMES        SIZE                                                                                      SIZE
+e90b8831a4b8   nginx          "/bin/bash -c 'mkdir "   11 weeks ago   Up 4 hours           my_nginx     35.58 kB (virtual 109.2 MB)
+00c6131c5e30   telegraf:1.5   "/entrypoint.sh"         11 weeks ago   Up 11 weeks          my_telegraf  0 B (virtual 209.5 MB)
+```
+       
 # Docker Image  
 ```
 $  docker images [OPTIONS] [REPOSITORY[:TAG]]
@@ -69,7 +104,7 @@ The default "docker images" command shows all top level images, their respective
 --quiet, -q: Only shows the image IDs  
 ```
        
-All Examples taken from docker.com:  
+Example:  
 ```
 $ docker images  
 
