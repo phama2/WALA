@@ -16,6 +16,13 @@ docker/getting-started - the image to use
 
 This starts the basic docker tutorial. 
 
+# The Main Docker Command in regards to Wala
+
+To run the Wala Development image in Docker, you need to run the following command:  
+```
+docker run -v /mnt/d/WalaTesting/input:/input -v /mnt/d/WalaTesting/output:/output -p 5901:5901 -ti julianwindows/wala:walacodenet
+```
+
 Some basic notes regarding the run command found here https://docs.docker.com/engine/reference/run/:  
 ```
 $ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
@@ -43,12 +50,4 @@ These flags are related to networking.
 
 Other Flags:  
 -ti: Opens an interactive container instance  
-
-# Docker in regards to Wala
-
-To run the Wala Development image in Docker, you need to run the following command:  
-```
-docker run -v /mnt/d/WalaTesting/input:/input -v /mnt/d/WalaTesting/output:/output -p 5901:5901 -ti julianwindows/wala:walacodenet
-```
-
 
