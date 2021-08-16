@@ -23,6 +23,8 @@ To run the Wala Development image in Docker, you need to run the following comma
 docker run -v /mnt/d/WalaTesting/input:/input -v /mnt/d/WalaTesting/output:/output -p 5901:5901 -ti julianwindows/wala:walacodenet
 ```
 
+# Docker's Run Command
+
 Some basic notes regarding the run command found here https://docs.docker.com/engine/reference/run/:  
 ```
 $ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
@@ -51,3 +53,31 @@ These flags are related to networking.
 Other Flags:  
 -ti: Opens an interactive container instance  
 
+# Docker Image  
+```
+$  docker images [OPTIONS] [REPOSITORY[:TAG]]
+```
+The default "docker images" command shows all top level images, their respective repositories, tags, and their sizes.  
+#### Options  
+--all, -a: Shows all images  
+--digests: Shows digests  
+--filter, -f: Filters the output based on provided conditions  
+--no-trunc: Prevents the truncation of output  
+--quiet, -q: Only shows the image IDs  
+
+Examples taken from docker.com:  
+```
+$ docker images  
+
+REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE  
+<none>                    <none>              77af4d6b9913        19 hours ago        1.089 GB  
+committ                   latest              b6fa739cedf5        19 hours ago        1.089 GB  
+<none>                    <none>              78a85c484f71        19 hours ago        1.089 GB  
+
+$ docker images java  
+
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE  
+java                8                   308e519aac60        6 days ago          824.5 MB  
+java                7                   493d82594c15        3 months ago        656.3 MB  
+java                latest              2711b1d6f3aa        5 months ago        603.9 MB  
+```
